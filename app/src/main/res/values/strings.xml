@@ -16,6 +16,7 @@
     <string name="descricao">Descrição</string>
     <string name="entrar">Entrar</string>
     <string name="informe_todos_campos">Informe todos os campos</string>
+    <string name="tarefa_inserida">Tarefa inserida com sucesso!</string>
     <string name="email_igual">E-mail já existe</string>
     <string name="usuario_senha_incorretos">Usuário e/ou senha incorretas</string>
     <string name="erro">Algo está errado!</string>

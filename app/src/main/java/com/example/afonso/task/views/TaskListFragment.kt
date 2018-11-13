@@ -1,8 +1,10 @@
 package com.example.afonso.task.views
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +12,22 @@ import android.view.ViewGroup
 
 import com.example.afonso.task.R
 
-class TaskListFragment : Fragment() {
+class TaskListFragment : Fragment(), View.OnClickListener{
+
+    private lateinit var mContext: Context
+
+    companion object {
+        @JvmStatic
+        fun newInstance() : TaskListFragment {
+            /*Bundle args = new Bundle()
+            args.putString()
+            args.putString()
+            fragments.setArguments(args)*/
+            return TaskListFragment()
+
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,20 +42,21 @@ class TaskListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_task_list, container, false)
+        val rootView =  inflater.inflate(R.layout.fragment_task_list, container, false)
+
+        rootView.findViewById<FloatingActionButton>(R.id.floatAddTask).setOnClickListener(this)
+        mContext = rootView.context
+
+        return rootView
     }
 
-
-    companion object {
-        @JvmStatic
-        fun newInstance() : TaskListFragment {
-            /*Bundle args = new Bundle()
-            args.putString()
-            args.putString()
-            fragments.setArguments(args)*/
-            return TaskListFragment()
-
+    override fun onClick(view: View) {
+        when(view.id){
+            R.id.floatAddTask -> {
+                startActivity(Intent(mContext, TaskFormActivity::class.java))
+            }
         }
-
     }
+
+
 }
