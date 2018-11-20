@@ -93,11 +93,12 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
             val complete = checkComplete.isChecked
             val dueDate = buttonDate.text.toString()
 
-            val userId = mSecurityPreferences.getStorage(TaskConstants.KEY.USER_ID).toInt()
+            val userId = mSecurityPreferences.getStoredString( TaskConstants.KEY.USER_ID).toInt()
 
             val taskEntity = TaskEntity(0, userId, priorityId, description, dueDate, complete)
             mTaskBusiness.insert(taskEntity)
-            Toast.makeText(this, getString(R.string.tarefa_inserida), Toast.LENGTH_LONG).show()
+//            Toast.makeText(this, getString(R.string.tarefa_inserida), Toast.LENGTH_LONG).show()
+            finish()
 
         }catch (e: Exception){
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()

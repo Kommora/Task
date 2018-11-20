@@ -10,7 +10,9 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.example.afonso.task.R
+import com.example.afonso.task.business.PriorityBusiness
 import com.example.afonso.task.constants.TaskConstants
+import com.example.afonso.task.repository.PriorityCacheConstants
 import com.example.afonso.task.util.SecurityPreferences
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -18,6 +20,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var mSecurityPreferences: SecurityPreferences
+    private lateinit var mPriorityBusiness: PriorityBusiness
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +38,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
 
         mSecurityPreferences = SecurityPreferences(this)
+        mPriorityBusiness = PriorityBusiness(this)
 
+        loadPriorityCache()
         startDefaultFragment()
     }
 
@@ -74,8 +79,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+    private fun loadPriorityCache(){
+        PriorityCacheConstants.setCache(mPriorityBusiness.getList())
+    }
+
     private fun startDefaultFragment(){
-        val fragment : Fragment = TaskListFragment.newInstance()
+        val fragment: Fragment = TaskListFragment.newInstance()
 
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction().replace(R.id.frameContent, fragment).commit()

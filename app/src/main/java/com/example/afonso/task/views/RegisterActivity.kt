@@ -53,10 +53,10 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
 
-        }catch (e: ValidationException){
+        }catch (e: ValidationException) {
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
-        } catch (e: Exception){
-            Toast.makeText(this, R.string.erro , Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            Toast.makeText(this, getString(R.string.erro_inesperado), Toast.LENGTH_LONG).show()
         }
 
 

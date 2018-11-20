@@ -1,3 +1,3 @@
 package com.example.afonso.task.entities
 
-data class UserEntity(val id: Int, var name: String, var email: String, var password: String = "")
+data class UserEntity (val id: Int, var email: String, var name: String, var password: String = "")

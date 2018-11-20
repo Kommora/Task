@@ -41,7 +41,9 @@ class PriorityRepository private constructor(context: Context) {
                     val id = cursor.getInt(cursor.getColumnIndex(DatabaseConstants.PRIORITY.COLUMNS.ID))
                     val description = cursor.getString(cursor.getColumnIndex(DatabaseConstants.PRIORITY.COLUMNS.DESCRIPTION))
 
-                    list.add(PriorityEntity(id, description))
+                    val guestEntity = PriorityEntity(id, description)
+
+                    list.add(guestEntity)
                 }
             }
 

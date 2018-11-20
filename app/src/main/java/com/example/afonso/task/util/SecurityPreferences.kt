@@ -5,17 +5,17 @@ import android.content.SharedPreferences
 
 class SecurityPreferences (context: Context) {
 
-    private val mSharedPreferences: SharedPreferences = context.getSharedPreferences("tasks", Context.MODE_PRIVATE)
+    private val mSharedPreferences: SharedPreferences = context.getSharedPreferences("Tasks", Context.MODE_PRIVATE)
 
-    fun storeString(key:String, value:String){
-        mSharedPreferences.edit().putString(key, value).apply()
+    fun storeString(key: String, value: String) {
+        this.mSharedPreferences.edit().putString(key, value).apply()
     }
 
-    fun getStorage(key: String): String{
-        return mSharedPreferences.getString(key, "")
+    fun getStoredString(key: String): String {
+        return this.mSharedPreferences.getString(key, "")
     }
 
-    fun removeStoredString(key:String){
-        mSharedPreferences.edit().remove(key).apply()
+    fun removeStoredString (key: String) {
+        this.mSharedPreferences.edit().remove(key).commit()
     }
 }
