@@ -54,14 +54,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-        var fragment : Fragment = TaskListFragment.newInstance()
+        var fragment : Fragment = TaskListFragment.newInstance(TaskConstants.TASKFILTER.COMPLETE)
 
         when (item.itemId) {
             R.id.nav_done -> {
-                fragment = TaskListFragment.newInstance()
+                fragment = TaskListFragment.newInstance(TaskConstants.TASKFILTER.COMPLETE)
             }
             R.id.nav_todo -> {
-                fragment = TaskListFragment.newInstance()
+                fragment = TaskListFragment.newInstance(TaskConstants.TASKFILTER.TODO)
             }
             R.id.nav_logout -> {
                 handleLogout()
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun startDefaultFragment(){
-        val fragment: Fragment = TaskListFragment.newInstance()
+        val fragment: Fragment = TaskListFragment.newInstance(TaskConstants.TASKFILTER.COMPLETE)
 
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction().replace(R.id.frameContent, fragment).commit()

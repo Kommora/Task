@@ -1,14 +1,18 @@
 package com.example.afonso.task.viewholder
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.afonso.task.R
+import com.example.afonso.task.entities.OnTaskListFragmentInteractionListener
 import com.example.afonso.task.entities.TaskEntity
 import com.example.afonso.task.repository.PriorityCacheConstants
 
-class TaskViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+class TaskViewHolder(itemView : View, val context: Context, val listener: OnTaskListFragmentInteractionListener) : RecyclerView.ViewHolder(itemView){
 
     //variavel para referenciar
     private val mTextDescription: TextView = itemView.findViewById(R.id.textDescription)
@@ -24,6 +28,25 @@ class TaskViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         if(task.complete){
             mImageTask.setImageResource(R.drawable.ic_done)
         }
+
+        //Evento de click para edição
+        mTextDescription.setOnClickListener(View.OnClickListener {
+            listener.onListClick(task.id)
+        })
+
+        mTextDescription.setOnLongClickListener(View.OnLongClickListener {
+            showConfirmDialog(task)
+            true
+        })
+    }
+
+    private fun showConfirmDialog(task: TaskEntity) {
+        AlertDialog.Builder(context)
+            .setTitle("Remoção de Tarefa")
+            .setMessage("Deseja remover ${task.description}?")
+            .setIcon(R.drawable.ic_delete_black_24dp)
+            .setPositiveButton("Remover", DialogInterface.OnClickListener { dialog, which -> listener.onDeleteClick(task.id) })
+            .setNegativeButton("Cancelar", null).show()
     }
 
 }

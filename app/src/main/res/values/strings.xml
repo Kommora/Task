@@ -17,6 +17,7 @@
     <string name="entrar">Entrar</string>
     <string name="informe_todos_campos">Informe todos os campos</string>
     <string name="tarefa_inserida">Tarefa inserida com sucesso!</string>
+    <string name="tarefa_alterada">Tarefa alterada com sucesso!</string>
     <string name="email_igual">E-mail já existe</string>
     <string name="usuario_senha_incorretos">Usuário e/ou senha incorretas</string>
     <string name="erro">Algo está errado!</string>
@@ -24,6 +25,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="erro_inesperado">Algo de errado aconteceu</string>
+    <string name="tarefa_removida">Tarefa Removida com sucesso</string>
 
 
 </resources>

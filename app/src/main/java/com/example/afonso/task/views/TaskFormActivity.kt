@@ -29,6 +29,8 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
     private var mLstPrioritiesEntity: MutableList<PriorityEntity> = mutableListOf()
     private var mLstPrioritiesId: MutableList<Int> = mutableListOf()
 
+    private var mTaskId: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_form)
@@ -40,6 +42,18 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
         loadPriorities()
 
         setListeners()
+        loadDataFromActivity()
+    }
+
+    private fun getIndex(id: Int) : Int {
+        var index = 1
+        for (i in 0..mLstPrioritiesEntity.size){
+            if (mLstPrioritiesEntity[i].id == id){
+                index = i
+                break
+            }
+        }
+        return index
     }
 
     private fun loadPriorities(){
@@ -55,6 +69,21 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
     private fun setListeners() {
         buttonDate.setOnClickListener(this)
         buttonSave.setOnClickListener(this)
+    }
+
+    private fun loadDataFromActivity() {
+        val bundle = intent.extras
+        if(bundle != null){
+            mTaskId = bundle.getInt(TaskConstants.BUNDLE.TASKID)
+
+            val task = mTaskBusiness.get(mTaskId)
+            if (task != null){
+                editDescription.setText(task.description)
+                buttonDate.text = task.dueDate
+                checkComplete.isChecked = task.complete
+                spinnerPriority.setSelection(getIndex(task.priorityId))
+            }
+        }
     }
 
     override fun onClick(view: View) {
@@ -95,9 +124,16 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
 
             val userId = mSecurityPreferences.getStoredString( TaskConstants.KEY.USER_ID).toInt()
 
-            val taskEntity = TaskEntity(0, userId, priorityId, description, dueDate, complete)
-            mTaskBusiness.insert(taskEntity)
-//            Toast.makeText(this, getString(R.string.tarefa_inserida), Toast.LENGTH_LONG).show()
+            val taskEntity = TaskEntity(mTaskId, userId, priorityId, description, dueDate, complete)
+
+            if (mTaskId == 0){
+                mTaskBusiness.insert(taskEntity)
+                Toast.makeText(this, getString(R.string.tarefa_inserida), Toast.LENGTH_LONG).show()
+            } else {
+                mTaskBusiness.update(taskEntity)
+                Toast.makeText(this, getString(R.string.tarefa_alterada), Toast.LENGTH_LONG).show()
+            }
+//
             finish()
 
         }catch (e: Exception){
